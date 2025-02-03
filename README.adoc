@@ -1,0 +1,31 @@
+= LaTeX template for UER thesis
+
+== Preamble
+
+This repo aims to serve as template for a thesis hold at the Università Europea di Roma.
+
+The content of the repo is public domain (CC0 1.0 Universal), so you can use it as you like.
+
+For the scout rule however, I would appreciate it if you could contribute any improvements back.
+This way, the next person to use this template will be able to build upon your enhancements, making further improvements even easier without having to repeat the same steps.
+
+== Generate thesis
+
+=== On Linux and with IntelliJ IDEA
+- Install IntelliJ with TeXiFy plugin
+- Install the following packages (commands are for ArchLinux):
+
+[source, bash]
+----
+pacman -Ss texlive-basic texlive-bibtexextra texlive-bin texlive-binextra texlive-doc texlive-fontsextra texlive-fontsrecommended texlive-latex texlive-latexextra texlive-latexrecommended texlive-pictures texlive-plaingeneric texlive-xetex biber
+----
+- Open the main.tex and click on "Setup SDK" or setup the environment manually by pressing F4 on the project
+
+=== Finally
+- Create and run the first configuration with `Ctrl+Shift+F10`
+- Now you can adjust the generated "main" Tex configuration to open the generated PDF, e.g. via `xdg-open {pdf}`
+- Finally by running it (also via `Shift+F10`) the final main.pdf will be opened
+
+NOTE: Golden rule for LaTeX newcomers: +
+*just re-run*, if nothing then delete `out` folder and re-run. +
+Only if all the attempts fail, then try to understand the errors and the warnings in the logs.

@@ -1,0 +1,225 @@
+%! Author = Luca Letter
+
+%--------- Format bibliography and footnotes ---------
+\usepackage[utf8]{inputenc}
+\usepackage[style=authoryear-ibid,backend=biber,natbib]{biblatex}
+% Always cite in parenthesis
+\renewcommand{\textcite}{\citep}%
+%\renewcommand{\cite}{\footfullcite}%
+\renewcommand{\cite}{\textcite}%
+\usepackage[bottom]{footmisc} % Put the footnotes at the bottom of the page
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}% Always count up the footnotes and do not reset at each chapter
+% Redefine these fields to start on a new line
+\DeclareFieldFormat{url}{\newline\mkbibacro{URL}\addcolon\space\url{#1}}
+\DeclareFieldFormat{doi}{\newline\mkbibacro{DOI}\addcolon\space\url{#1}}
+\DeclareFieldFormat{eprint:arxiv}{\newline\mkbibacro{arXiv}\addcolon\space\url{#1}}
+% Suppress specific fields in footnotes
+\AtEveryCitekey{\clearfield{url}\clearfield{doi}\clearfield{issn}\clearfield{archivePrefix}}
+
+\newcommand{\printbibliographyandsitography}{
+    \printbibliography[heading=bibintoc, nottype=online, title={Bibliography}]
+    \printbibliography[heading=bibintoc, type=online, title={Sitography}]}%
+%-----------------------------------------------------
+
+\usepackage{array} % Required for better table formatting
+\usepackage{multirow} % Required to merge multiple rows in a table
+\usepackage{svg} % For images and graphics path
+\usepackage{graphicx} % For images and graphics path
+\usepackage[subfigure]{tocloft} % For customizing the TOC, with subfigure compatibility option
+%! suppress = MultipleIncludes
+\usepackage{subfigure} % To combine multiple images in one figure
+\usepackage[svgnames]{xcolor}
+\usepackage{hyperref} % Create links in the document
+\definecolor{linkGray}{rgb}{0.33, 0.33, 0.33} % Define a custom dark gray color
+\hypersetup{
+    colorlinks=true,
+    allcolors=DimGrey, % Color for internal links (like TOC and section references)
+    urlcolor=SteelBlue,
+    menucolor=black,
+}
+\usepackage{newtxtext} % Use a "Times New Roman"-like font
+\usepackage[nc]{newtxmath} % Use ScholaX font for math
+\usepackage{titlesec} % For customizing section titles
+\usepackage[labelfont=bf, labelsep=space]{caption} % Allow changing the captions (e.g. for figures and tables)
+\usepackage{booktabs} % For better looking tables
+\usepackage{etoolbox} % For table's text customization
+\usepackage{float} % For figures and tables (floating) placement
+\usepackage{cleveref} % For correct captions (figure and table) references
+\usepackage{epigraph} % For fancy quotations
+
+%--------- Format page margins ---------
+\usepackage{geometry}
+\geometry{
+    top=3cm,
+    right=3cm,
+    bottom=3cm,
+    left=4cm,
+    headheight=1.5cm,
+    bindingoffset=0cm,
+}
+%---------------------------------------
+
+%--------- Format chapter's title ---------
+%! suppress = MissingLabel
+\titleformat{\chapter}[display]
+{\normalfont\fontsize{16}{18}\bfseries} % Format: font, size, and boldness
+{\chaptertitlename\ \thechapter} % Label: "Chapter I"
+{20pt} % Separation between label and title
+{\Huge} % Before-code: font size for the title
+%! suppress = MissingLabel
+\titlespacing*{\chapter}{0pt}{0pt}{40pt} % this alters "before" spacing (the second length argument) to 0
+%! suppress = MissingLabel
+\titleformat{\chapter}[hang]
+{\normalfont\fontsize{16}{18}\bfseries\centering} % Format: font, size, boldness, and centering
+{\chaptertitlename\ \Roman{chapter}} % Label: "Chapter I"
+{10pt} % Separation between label and title
+{} % Before-code
+%-----------------------------------------------------------------
+
+%--------- Format the Table of Contents ---------
+\newcommand{\printtableofcontents}{
+    \begingroup
+    \hypersetup{linkcolor=black}
+    \tableofcontents
+    \endgroup}%
+
+\renewcommand{\contentsname}{\hfill\fontsize{16}{18}\bfseries Summary\hfill} % Format and center the TOC's title
+\renewcommand{\cftaftertoctitle}{\hfill} % Center the TOC's title
+\setlength{\cftbeforetoctitleskip}{5pt} % Spacing before TOC's title
+
+\renewcommand{\cftchappresnum}{Chapter~} % Prepend the text Chapter before the chapter's number and title
+\renewcommand{\cftchapaftersnum}{} % Append the text after the chapter's number
+\setlength{\cftchapnumwidth}{1.8cm} % Adjust the width to accommodate "Chapter X"
+%-------------------------------------------------
+
+%--------- Format sections's title ---------
+%! suppress = MissingLabel
+\titleformat{\section}
+{\normalfont\fontsize{14}{16}\bfseries} % Format: font style, size, and boldness
+{\thesection} % Section number
+{10pt} % Space between number and title
+{} % Before-code
+%-------------------------------------------
+
+%--------- Format subsections's title ---------
+%! suppress = MissingLabel
+\titleformat{\subsection}
+{\normalfont\fontsize{12}{16}\bfseries} % Format: font style, size, and boldness
+{\thesubsection} % Section number
+{10pt} % Space between number and title
+{} % Before-code
+%-------------------------------------------
+
+%! suppress = EscapeHashOutsideCommand
+\DeclareCaptionLabelFormat{boldlabel}{\textbf{#1 #2} -}
+%--------- Format figures and the List of Figures ---------
+\counterwithout{figure}{chapter} % count asccending without considering the chapters
+\renewcommand{\figurename}{Figure n.}
+\captionsetup[figure]{labelformat=boldlabel, font=footnotesize, textfont=it}
+
+\renewcommand{\cftloftitlefont}{\hfill\fontsize{16}{18}\bfseries} % Format and center the LoF's title
+\renewcommand{\cftafterloftitle}{\hfill} % Center the LoF's title
+\setlength{\cftbeforeloftitleskip}{5pt} % Spacing before LoF's title
+%-------------------------------------------------
+
+%--------- Format tables and the List of Tables ---------
+\counterwithout{table}{chapter} % count asccending without considering the chapters
+\renewcommand{\tablename}{Table n.}
+\captionsetup[table]{labelformat=boldlabel, font=footnotesize, textfont=it}
+\AtBeginEnvironment{tabular}{\footnotesize} % By default, use a smaller text in table
+
+\renewcommand{\cftlottitlefont}{\hfill\fontsize{16}{18}\bfseries} % Format and center the LoT's title
+\renewcommand{\cftafterlottitle}{\hfill} % Center the LoT's title
+\setlength{\cftbeforelottitleskip}{5pt} % Spacing before LoT's title
+
+% Define a new column type with a thicker vertical line
+\newcolumntype{§}{!{\vrule width \heavyrulewidth}}
+%---------------------------------------------
+
+%--------- Glossary and other document appendices ---------
+\newcommand{\printlistoffigures}{
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listfigurename}
+    \listoffigures}%
+\newcommand{\printlistoftables}{
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listtablename}
+    \listoftables}%
+
+\usepackage[acronym]{glossaries}
+\newcommand{\printglossaryandacronyms}{
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\glossaryname}
+    \printglossary
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{Acronyms}
+    \printglossary[type=\acronymtype]}%
+
+\newcommand{\customchapter}[1]{ % Do not prepend text before the introduction title
+    \clearpage
+    \phantomsection
+    \chapter*{#1}
+    \label{ch:#1}
+    \addcontentsline{toc}{chapter}{#1}
+}
+
+\newcommand{\beginappendix}{
+    \appendix
+    \customchapter{\appendixname}
+    \renewcommand{\thesection}{\Alph{section}}
+}
+%----------------------------------------------------------
+
+%--------- Format paragraph and text commands ---------
+\setlength{\parindent}{0pt} % Removes indentation for all paragraphs
+\newcommand{\textquote}[1]{\textquoteleft#1\textquoteright}%
+\newcommand{\textdblquote}[1]{\textquotedblleft#1\textquotedblright}%
+
+\usepackage{xstring}
+%! suppress = UnresolvedReference
+\newcommand{\tableref}[1]{%
+    \IfBeginWith{#1}{tab:}%
+    {%
+        \hyperref[#1]{\tablename~\ref*{#1}}%
+    }%
+    {%
+        \ClassError{uer_formatting}{Label `#1` is not a table (tab:) label}{}%
+    }%
+}
+%! suppress = UnresolvedReference
+\newcommand{\figureref}[1]{%
+    \IfBeginWith{#1}{fig:}%
+    {%
+        \hyperref[#1]{\figurename~\ref*{#1}}%
+    }%
+    {%
+        \ClassError{uer_formatting}{Label `#1` is not a figure (fig:) label}{}%
+    }%
+}
+%! suppress = UnresolvedReference
+\newcommand{\chapterref}[1]{%
+    \IfBeginWith{#1}{ch:}%
+    {%
+        \chaptername~\ref*{#1}~\nameref{#1}%
+    }%
+    {%
+        \ClassError{uer_formatting}{Label `#1` is not a chapter (ch:) label}{}%
+    }%
+}
+
+%! suppress = UnresolvedReference
+\newcommand{\sectionref}[1]{%
+    \IfBeginWith{#1}{sec:}%
+    {%
+        \chaptername~\ref*{#1}~\nameref{#1}%
+    }%
+    {%
+        \ClassError{uer_formatting}{Label `#1` is not a section (sec:) label}{}%
+    }%
+}
+%------------------------------------------------------

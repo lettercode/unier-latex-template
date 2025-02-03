@@ -1,0 +1,62 @@
+%! Author = Luca Letter
+%! Compiler = latexmk -xelatex
+
+%! suppress = FileNotFound
+\documentclass[11pt,a4paper,titlepage]{report}
+\usepackage{amssymb}
+\input{uer_formatting}
+\addbibresource{bibliography.bib}
+\addbibresource{sitography.bib}
+\input{glossary}
+
+\graphicspath{{images/}}
+
+% Uncomment to get visible frames in the doc, helps in debugging arrangement issues
+%\usepackage{showframe}
+% Uncomment to ignore overfull \hbox warnings,
+% needed sometimes to get LaTeX through the compilation, before understanding how to fix the issue
+%\hfuzz=999pt
+
+\begin{document}
+
+    %-------------------------------------
+    %--------- Document Start ------------
+    %-------------------------------------
+    \pagenumbering{gobble}
+
+    \input{cover}
+
+    \printtableofcontents
+
+    \clearpage
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    %-------------------------------------
+
+    \customchapter{Introduction}
+    \input{introduction}
+    %-------------------------------------
+    %--------- Document Chapters ---------
+    %-------------------------------------
+    \input{chapters/discussion}
+    %-------------------------------------
+    \customchapter{Conclusions}
+    \input{conclusions}
+
+    %-------------------------------------
+    %--------- Document End --------------
+    %-------------------------------------
+    \printbibliographyandsitography
+
+    \printlistoffigures
+    \printlistoftables
+
+    \printglossaryandacronyms
+
+    \customchapter{Acknowledgments}
+    \input{acknowledgments}
+
+    \beginappendix
+    \input{appendix}
+    %-------------------------------------
+\end{document}

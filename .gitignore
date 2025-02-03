@@ -1,0 +1,5 @@
+# LaTeX output folder
+out
+
+# IntelliJ generated files
+.idea
